@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#214d40">
+  <meta name="description" content="Không gian ôn tập 5 môn: tìm kiếm theo từ khóa, đọc lý thuyết, ôn câu hỏi và xem lời giải từ tài liệu của bạn.">
+  <title>Góc ôn tập · 5 môn học</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#search">Đến ô tìm kiếm</a>
+<div class="app-shell">
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="#"><span class="brand-icon" data-icon="book"></span><span>góc ôn tập<span class="brand-sub">KIẾN THỨC TRONG TẦM TAY</span></span></a>
+    <button class="nav-item main-nav active" data-subject="all"><span data-icon="grid"></span>Tổng quan<span class="nav-arrow">↗</span></button>
+    <p class="side-label">5 MÔN HỌC CỦA BẠN</p>
+    <nav id="subject-nav" aria-label="Chọn môn học"></nav>
+    <div class="side-divider"></div>
+    <p class="side-label">GÓC CÁ NHÂN</p>
+    <button class="nav-item" data-view="saved"><span data-icon="bookmark"></span>Đã đánh dấu <span id="saved-count" class="nav-count">0</span></button>
+    <button class="nav-item" data-view="check"><span data-icon="alert"></span>Cần đối chiếu <span id="check-count" class="nav-count"></span></button>
+    <button class="nav-item" data-action="sources"><span data-icon="folder"></span>Tài liệu gốc <span class="nav-count">7</span></button>
+    <div class="study-progress"><div class="progress-top"><span>Tiến độ của bạn</span><span id="progress-percent">0%</span></div><div class="progress-track"><span id="progress-bar"></span></div><p id="progress-label">Bắt đầu từ một nội dung nhỏ.</p><button data-view="learned">Xem phần đã nhớ <span>→</span></button></div>
+    <button class="side-help" data-action="help"><span data-icon="help"></span>Cách sử dụng</button>
+    <div class="side-footer"><span class="small-dot"></span>Không gian ôn tập cá nhân</div>
+  </aside>
+  <div class="mobile-overlay" id="mobile-overlay"></div>
+  <main>
+    <header class="topbar"><div class="topbar-left"><button class="icon-button mobile-menu" aria-label="Mở danh sách môn học" id="menu-button" data-icon="menu"></button><span>HỌC KỲ NÀY</span><span class="topbar-slash">/</span><span id="breadcrumb">Tổng quan ôn tập</span></div><button class="top-sources" data-action="sources"><span data-icon="file"></span><span>7 tài liệu đã sẵn sàng</span><span class="tiny-dot"></span></button></header>
+    <nav class="subject-tabs-bar" id="subject-tabs" role="tablist" aria-label="Chọn môn học để ôn tập"></nav>
+    <div class="main-content" id="subject-panel" role="tabpanel" tabindex="0">
+      <section class="hero" id="hero"></section>
+      <section class="subject-section" id="subject-section"><div class="section-heading"><h2>Chọn môn để bắt đầu</h2><span>Đi từng phần, nhớ từng chút.</span></div><div class="subject-grid" id="subject-grid"></div></section>
+      <section class="workspace" aria-label="Tra cứu nội dung ôn tập">
+        <div class="search-panel"><div class="search-field"><span data-icon="search"></span><input id="search" type="search" placeholder="Bạn đang cần tìm kiến thức gì?" autocomplete="off" aria-label="Tìm từ khóa trong nội dung ôn tập"><button id="clear-search" class="icon-button" aria-label="Xóa từ khóa" hidden data-icon="close"></button><kbd>/</kbd></div><div class="search-bottom"><div id="search-hints"></div><span class="search-note">Tìm được cả khi gõ không dấu</span></div></div>
+        <div class="results-toolbar"><div class="type-tabs" id="type-tabs" role="group" aria-label="Loại nội dung"></div><div class="filter-options"><label class="sr-only" for="chapter">Chọn chương</label><select id="chapter"><option value="">Tất cả chương</option></select><label class="answer-switch"><input id="hide-answers" type="checkbox"><span class="switch-track"></span><span>Ẩn đáp án</span></label></div></div>
+        <div class="results-heading"><h2 id="results-title">Nội dung ôn tập</h2><span id="results-count" aria-live="polite"></span></div>
+        <div id="subject-notice" class="subject-notice" hidden></div>
+        <div class="results-list" id="results-list"><div class="loading-state">Đang chuẩn bị nội dung ôn tập…</div></div>
+        <div class="pagination" id="pagination"></div>
+      </section>
+      <footer class="page-footer"><span>Học từ tài liệu của bạn. Tra lại nguồn bất cứ lúc nào.</span><span>Góc ôn tập <span class="footer-leaf">✳</span></span></footer>
+    </div>
+  </main>
+</div>
+<dialog id="reader" class="reader-dialog"><div class="reader-toolbar"><span class="reader-label" id="reader-label"></span><div class="reader-actions"><button class="icon-button" id="reader-bookmark" aria-label="Đánh dấu nội dung" data-icon="bookmark"></button><button class="icon-button" id="reader-close" aria-label="Đóng nội dung" data-icon="close"></button></div></div><div class="reader-scroll" id="reader-scroll"><div class="reader-content" id="reader-content"></div></div><div class="reader-footer"><button id="mark-learned" class="primary-button"><span data-icon="check"></span>Đánh dấu đã nhớ</button><button id="next-item" class="text-button">Nội dung tiếp theo <span>→</span></button></div></dialog>
+<dialog id="info-dialog" class="info-dialog"><div class="reader-toolbar"><strong id="info-title"></strong><button class="icon-button" id="info-close" aria-label="Đóng" data-icon="close"></button></div><div id="info-body"></div></dialog>
+<div id="toast" class="toast" role="status"></div>
+<script type="module" src="app.mjs"></script>
+</body>
+</html>
